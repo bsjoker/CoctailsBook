@@ -94,7 +94,7 @@ class CatalogGroupeActivity : AppCompatActivity(), CatalogGroupContract.View {
             }
         })
 
-        navigation.selectedItemId = R.id.navigation_catalog
+//        navigation.selectedItemId = R.id.navigation_catalog
         num = intent.getIntExtra("pos", 0)
 
 //        when (num) {
@@ -133,13 +133,13 @@ class CatalogGroupeActivity : AppCompatActivity(), CatalogGroupContract.View {
 
 
 
-        navigation.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_home -> startActivity(Intent(this@CatalogGroupeActivity, MainActivity::class.java))
-                R.id.navigation_catalog -> startActivity(Intent(this@CatalogGroupeActivity, CatalogActivity::class.java))
-            }
-            return@setOnNavigationItemSelectedListener true
-        }
+//        navigation.setOnNavigationItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.navigation_home -> startActivity(Intent(this@CatalogGroupeActivity, MainActivity::class.java))
+//                R.id.navigation_catalog -> startActivity(Intent(this@CatalogGroupeActivity, CatalogActivity::class.java))
+//            }
+//            return@setOnNavigationItemSelectedListener true
+//        }
     }
 
     override fun setData(imageGroup: Drawable, text: String) {

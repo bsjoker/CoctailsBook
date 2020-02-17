@@ -1,11 +1,9 @@
 package com.bakayapps.coctailsbook.database
 
 import androidx.room.TypeConverter
-import com.bakayapps.coctailsbook.models.RecipesModel
+import com.bakayapps.coctailsbook.data.database.entity.RecipesModel
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ListConverter {
     var gson = Gson()
@@ -16,8 +14,6 @@ class ListConverter {
         if (data == null){
             return Collections.emptyList()
         }
-        //val listType = object : TypeToken<ArrayList<String>>() {}.type
-        //return gson.fromJson(data, listType)
         return gson.fromJson(data, Array<RecipesModel>::class.java).toList()
 
     }

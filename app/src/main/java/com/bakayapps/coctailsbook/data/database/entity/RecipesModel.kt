@@ -1,4 +1,4 @@
-package com.bakayapps.coctailsbook.models
+package com.bakayapps.coctailsbook.data.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -15,8 +15,7 @@ data class RecipesModel(
     @TypeConverters(ListConverter::class)
     @ColumnInfo(name = "steps") val steps: List<String>,
     @ColumnInfo(name = "instructions") val instructions: String,
-    @ColumnInfo(name = "rate") val rate: Int//,
-    //val reviews: List<ReviewModel>
+    @ColumnInfo(name = "rate") val rate: Int
 ) {
     constructor() : this(
         null, "", "", null, emptyList(), "", 0

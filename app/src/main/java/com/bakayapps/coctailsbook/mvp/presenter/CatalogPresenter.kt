@@ -33,6 +33,6 @@ class CatalogPresenter(val mView: CatalogContract.View): CatalogContract.Present
     }
 
     override fun clickToItem(pos: Int) {
-        mView.startNewActivity(pos)
+        //mView.startNewActivity(pos)
     }
 }

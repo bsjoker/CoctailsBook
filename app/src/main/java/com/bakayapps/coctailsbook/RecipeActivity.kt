@@ -22,7 +22,6 @@ import java.lang.StringBuilder
 import java.util.*
 import androidx.lifecycle.ViewModelProvider
 import com.bakayapps.coctailsbook.database.ArticlesViewModel
-import com.bakayapps.coctailsbook.mvp.view.CatalogActivity
 import com.bakayapps.coctailsbook.mvp.view.MainActivity
 
 
@@ -135,23 +134,23 @@ class RecipeActivity : AppCompatActivity() {
         adapter = ComponentsAdapter(componentsForRV)
         rvRecipe.adapter = adapter
 
-        navigation.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_home -> startActivity(
-                    Intent(
-                        this@RecipeActivity,
-                        MainActivity::class.java
-                    )
-                )
-                R.id.navigation_catalog -> startActivity(
-                    Intent(
-                        this@RecipeActivity,
-                        CatalogActivity::class.java
-                    )
-                )
-            }
-            return@setOnNavigationItemSelectedListener true
-        }
+//        navigation.setOnNavigationItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.navigation_home -> startActivity(
+//                    Intent(
+//                        this@RecipeActivity,
+//                        MainActivity::class.java
+//                    )
+//                )
+//                R.id.navigation_catalog -> startActivity(
+//                    Intent(
+//                        this@RecipeActivity,
+//                        CatalogActivity::class.java
+//                    )
+//                )
+//            }
+//            return@setOnNavigationItemSelectedListener true
+//        }
 
         startAnimationAlpha(image, 0)
         startAnimationAlpha(card, 0)

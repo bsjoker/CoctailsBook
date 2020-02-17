@@ -1,4 +1,4 @@
-package com.bakayapps.coctailsbook.models
+package com.bakayapps.coctailsbook.data.database.entity
 
 import androidx.room.*
 import com.bakayapps.coctailsbook.database.ListConverter

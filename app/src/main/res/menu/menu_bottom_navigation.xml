@@ -2,12 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/btn_nav_home"
-        android:title="@string/nav_main" />
+        android:title="@string/nav_main"
+        android:orderInCategory = "100"/>
 
     <item
-        android:id="@+id/navigation_catalog"
+        android:id="@+id/catalogFragment"
         android:icon="@drawable/btn_nav_catalog"
-        android:title="@string/nav_catalog" />
+        android:title="@string/nav_catalog"
+        android:orderInCategory = "100"/>
 </menu>

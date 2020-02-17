@@ -5,7 +5,7 @@ import com.bakayapps.coctailsbook.models.RecipeModelForRV
 interface CatalogContract {
     interface View {
         fun setDataToRV(groupsForRV: ArrayList<RecipeModelForRV>)
-        fun startNewActivity(pos: Int)
+        //fun startNewActivity(pos: Int)
 
     }
 

@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.bakayapps.coctailsbook.models.ArticlesModel
+import com.bakayapps.coctailsbook.data.database.entity.ArticlesModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

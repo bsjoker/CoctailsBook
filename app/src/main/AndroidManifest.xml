@@ -34,11 +34,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
 
-        <activity android:name=".mvp.view.CatalogActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden|screenSize">
-
-        </activity>
         <activity android:name=".mvp.view.CatalogGroupeActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize">
