@@ -1,7 +1,7 @@
 package com.bakayapps.coctailsbook.di
 
 import android.graphics.drawable.Drawable
-import com.bakayapps.coctailsbook.models.ArticlesModel
+import com.bakayapps.coctailsbook.data.database.entity.ArticlesModel
 import com.bakayapps.coctailsbook.models.RecipeModelForRVGroup
 
 interface CatalogGroupContract {

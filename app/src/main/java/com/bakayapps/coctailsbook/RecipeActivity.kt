@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bakayapps.coctailsbook.adapter.ComponentsAdapter
 import com.bakayapps.coctailsbook.models.ComponentsModelForRV
-import com.bakayapps.coctailsbook.models.RecipesModel
 import androidx.lifecycle.Observer
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_recipe.*
@@ -34,7 +33,7 @@ class RecipeActivity : AppCompatActivity() {
     private var numRecipe: Int = 0
     private var numImage: Int = 0
     lateinit var adapter: ComponentsAdapter
-    private var mRecipes = RecipesModel()
+    //private var mRecipes = RecipesModel()
     private lateinit var currentDrawList: IntArray
     val componentsForRV: ArrayList<ComponentsModelForRV> = ArrayList()
 
@@ -85,48 +84,48 @@ class RecipeActivity : AppCompatActivity() {
         }
 
         articlesViewModel = ViewModelProvider(this).get(ArticlesViewModel::class.java)
-        articlesViewModel.allArticles.observe(this, Observer { articles ->
-                        articles?.let { mRecipes = it[num].articles[numRecipe]
-                            numImage = (0..currentDrawList.size-1).random()
-                            image.setImageDrawable(
-                                ContextCompat.getDrawable(
-                                    this,
-                                    currentDrawList[numImage]
-                                )
-                            )
-
-                            ratingBar.visibility = View.VISIBLE
-
-                            image.alpha = 1.0f
-
-                            tvNameCard.text = mRecipes.name
-                            ratingBar.rating = mRecipes.rate.toFloat()
-                            tvDescription.text = mRecipes.description
-                            tvUsage.text = mRecipes.instructions
-
-                            val components = mRecipes.components
-                            components?.forEach {
-                                componentsForRV.add(ComponentsModelForRV(it.key, it.value))
-                            }
-
-                            val stringBuilder = StringBuilder()
-                            var stepNum = 0
-                            mRecipes.steps.forEach {
-                                if (stepNum < mRecipes.steps.size - 1) {
-                                    Log.d(TAG, "StepNum + n" + stepNum)
-                                    ++stepNum
-                                    stringBuilder.append(stepNum.toString()).append(". ").append(it)
-                                        .append("\n")
-                                } else {
-                                    Log.d(TAG, "StepNum" + stepNum)
-                                    ++stepNum
-                                    stringBuilder.append(stepNum.toString()).append(". ").append(it)
-
-                                }
-                            }
-
-                            tvPrepare.text = stringBuilder
-                            updateRV() }})
+//        articlesViewModel.allArticles.observe(this, Observer { articles ->
+//                        articles?.let { //mRecipes = it[num].articles[numRecipe]
+//                            numImage = (0..currentDrawList.size-1).random()
+//                            image.setImageDrawable(
+//                                ContextCompat.getDrawable(
+//                                    this,
+//                                    currentDrawList[numImage]
+//                                )
+//                            )
+//
+//                            ratingBar.visibility = View.VISIBLE
+//
+//                            image.alpha = 1.0f
+//
+//                            tvNameCard.text = mRecipes.name
+//                            ratingBar.rating = mRecipes.rate.toFloat()
+//                            tvDescription.text = mRecipes.description
+//                            tvUsage.text = mRecipes.instructions
+//
+//                            val components = mRecipes.components
+//                            components?.forEach {
+//                                componentsForRV.add(ComponentsModelForRV(it.key, it.value))
+//                            }
+//
+//                            val stringBuilder = StringBuilder()
+//                            var stepNum = 0
+//                            mRecipes.steps.forEach {
+//                                if (stepNum < mRecipes.steps.size - 1) {
+//                                    Log.d(TAG, "StepNum + n" + stepNum)
+//                                    ++stepNum
+//                                    stringBuilder.append(stepNum.toString()).append(". ").append(it)
+//                                        .append("\n")
+//                                } else {
+//                                    Log.d(TAG, "StepNum" + stepNum)
+//                                    ++stepNum
+//                                    stringBuilder.append(stepNum.toString()).append(". ").append(it)
+//
+//                                }
+//                            }
+//
+//                            tvPrepare.text = stringBuilder
+//                            updateRV() }})
 
         val layoutManager = LinearLayoutManager(this)
         rvRecipe.layoutManager = layoutManager

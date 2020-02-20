@@ -8,8 +8,8 @@ import android.util.Log
 import com.bakayapps.coctailsbook.App
 import com.bakayapps.coctailsbook.mvp.view.LoadingActivity
 import com.bakayapps.coctailsbook.R
+import com.bakayapps.coctailsbook.data.database.entity.ArticlesModel
 import com.bakayapps.coctailsbook.di.LoadingContract
-import com.bakayapps.coctailsbook.models.ArticlesModel
 import com.bakayapps.coctailsbook.utils.PreferencesHelper
 
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -31,38 +31,38 @@ class LoadingPresenter(val mView: LoadingContract.View): LoadingContract.Present
     private var accessCountry = false
 
 
-    private val mIBeautyDataApi by lazy {
-        App.create()
-    }
-
-    private val mICountryApi by lazy {
-        App.createCountry()
-    }
+//    private val mIBeautyDataApi by lazy {
+//        App.create()
+//    }
+//
+//    private val mICountryApi by lazy {
+//        App.createCountry()
+//    }
 
     override fun getRecipesFromServer() {
-        if (hasConnection(App.instance.applicationContext)) {
-            disposable = mIBeautyDataApi.getData("info")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { result ->
-                        var mArticles = ArrayList<ArticlesModel>()
-                        mArticles.addAll(result)
-
-                        result.forEach {
-                            i++
-                            it.id = i
-                            mView.setArtictesViewModel(it)
-                            //articlesViewModel.insert(it)
-                            Log.d(TAG, "Data from result: " + it.title + " " + it.id)
-                        }
-                        catchData = true
-                    },
-                    { error -> Log.d(TAG, "Error to try catch data!") }
-                )
-        } else {
-            Log.d(TAG, "No connect")
-        }
+//        if (hasConnection(App.instance.applicationContext)) {
+//            disposable = mIBeautyDataApi.getData("info")
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(
+//                    { result ->
+//                        var mArticles = ArrayList<ArticlesModel>()
+//                        mArticles.addAll(result)
+//
+//                        result.forEach {
+//                            i++
+//                            it.id = i
+//                            mView.setArtictesViewModel(it)
+//                            //articlesViewModel.insert(it)
+//                            Log.d(TAG, "Data from result: " + it.title + " " + it.id)
+//                        }
+//                        catchData = true
+//                    },
+//                    { error -> Log.d(TAG, "Error to try catch data!") }
+//                )
+//        } else {
+//            Log.d(TAG, "No connect")
+//        }
     }
 
     override fun hasConnection(context: Context): Boolean {

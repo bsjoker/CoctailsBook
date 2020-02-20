@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bakayapps.coctailsbook.App
 import com.bakayapps.coctailsbook.R
+import com.bakayapps.coctailsbook.data.database.entity.ArticlesModel
 import com.bakayapps.coctailsbook.database.ArticlesViewModel
 import com.bakayapps.coctailsbook.di.LoadingContract
-import com.bakayapps.coctailsbook.models.ArticlesModel
 import kotlinx.android.synthetic.main.activity_loading.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf

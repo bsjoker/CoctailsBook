@@ -2,8 +2,7 @@ package com.bakayapps.coctailsbook.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.bakayapps.coctailsbook.models.ArticlesModel
-
+import com.bakayapps.coctailsbook.data.database.entity.ArticlesModel
 
 @Dao
 interface ArticlesDao {

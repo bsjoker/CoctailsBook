@@ -5,10 +5,10 @@ import android.util.Log
 import androidx.core.content.ContextCompat
 import com.bakayapps.coctailsbook.App
 import com.bakayapps.coctailsbook.R
+import com.bakayapps.coctailsbook.data.database.entity.ArticlesModel
+import com.bakayapps.coctailsbook.data.database.entity.RecipesModel
 import com.bakayapps.coctailsbook.di.CatalogGroupContract
-import com.bakayapps.coctailsbook.models.ArticlesModel
 import com.bakayapps.coctailsbook.models.RecipeModelForRVGroup
-import com.bakayapps.coctailsbook.models.RecipesModel
 import com.bakayapps.coctailsbook.mvp.view.CatalogGroupeActivity
 import kotlinx.android.synthetic.main.activity_catalog_grope.*
 

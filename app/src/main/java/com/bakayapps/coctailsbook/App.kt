@@ -35,31 +35,6 @@ class App : Application() {
     }
 
     companion object {
-        fun create(): iBeautyDataApi {
-            val interceptor = HttpLoggingInterceptor()
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-            val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
-
-            val retrofit = Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://80.211.207.96:14234/")
-                .client(client)
-                .build()
-
-            return retrofit.create(iBeautyDataApi::class.java)
-        }
-
-        fun createCountry(): iCountryApi {
-            val retrofit = Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://ip-api.com/")
-                .build()
-
-            return retrofit.create(iCountryApi::class.java)
-        }
-
         lateinit var instance: App
             private set
     }

@@ -1,7 +1,7 @@
 package com.bakayapps.coctailsbook.di
 
 import android.content.Context
-import com.bakayapps.coctailsbook.models.ArticlesModel
+import com.bakayapps.coctailsbook.data.database.entity.ArticlesModel
 
 interface LoadingContract {
     interface View {
