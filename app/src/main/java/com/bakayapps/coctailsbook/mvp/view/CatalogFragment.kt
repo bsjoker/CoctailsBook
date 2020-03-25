@@ -6,21 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bakayapps.coctailsbook.R
 import com.bakayapps.coctailsbook.adapter.CatalogAdapter
+import com.bakayapps.coctailsbook.database.CoctailViewModel
 import com.bakayapps.coctailsbook.di.CatalogContract
 import com.bakayapps.coctailsbook.models.RecipeModelForRV
-import kotlinx.android.synthetic.main.fragment_catalog.*
-import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 
 class CatalogFragment : Fragment(), CatalogContract.View {
     companion object {
         const val TAG = "CatalogFragment"
     }
 
-    val mPresenter: CatalogContract.Presenter by inject { parametersOf(this) }
+    private val model by viewModel<CoctailViewModel>()
+
+    //val mPresenter: CatalogContract.Presenter by inject { parametersOf(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +35,8 @@ class CatalogFragment : Fragment(), CatalogContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mPresenter.fillDataForRV()
+        observeViewModelData()
+        //mPresenter.fillDataForRV()
 
 //        navigation.selectedItemId = R.id.navigation_catalog
 //        navigation.setOnNavigationItemSelectedListener { item ->
@@ -45,11 +47,17 @@ class CatalogFragment : Fragment(), CatalogContract.View {
 //        }
     }
 
+    private fun observeViewModelData() {
+        //model.networkState?.observe(this, Observer { repositoryRecyclerViewAdapter.updateNetworkState(it) })
+        Log.d(TAG, model.fetchRecipesByIngredients("Cocktail").toString())
+        model.coctails.observe(viewLifecycleOwner, Observer { model -> Log.d(TAG, "Observe + ${model}") })
+    }
+
     override fun setDataToRV(groupsForRV: ArrayList<RecipeModelForRV>) {
         recyclerViewCatalogMain.layoutManager = LinearLayoutManager(requireContext())
         recyclerViewCatalogMain.adapter = CatalogAdapter(groupsForRV) {
             Log.d(TAG, "clicked at : $it")
-            mPresenter.clickToItem(it)
+            //mPresenter.clickToItem(it)
         }
     }
 

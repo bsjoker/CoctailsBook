@@ -12,8 +12,8 @@ import retrofit2.http.Url
 
 interface iCoctailsDBApi {
 
-    @GET("/api/json/v1/1/list.php")
-    fun getShortListCoctails(@Query("c") query: String): Deferred<ShortItemCoctailResponse>
+    @GET("api/json/v1/1/filter.php")
+    fun getShortListCoctails(@Query("c") query: String): Deferred<List<ShortItemCoctailResponse>>
 
     @GET
     fun getData(@Url url: String): Single<List<ArticlesModel>>

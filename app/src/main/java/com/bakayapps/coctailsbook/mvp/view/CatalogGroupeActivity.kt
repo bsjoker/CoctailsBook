@@ -5,19 +5,14 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bakayapps.coctailsbook.R
 import com.bakayapps.coctailsbook.RecipeActivity
 import com.bakayapps.coctailsbook.adapter.GroupAdapter
-import com.bakayapps.coctailsbook.database.ArticlesViewModel
+import com.bakayapps.coctailsbook.database.CoctailViewModel
 import com.bakayapps.coctailsbook.di.CatalogGroupContract
 import com.bakayapps.coctailsbook.models.RecipeModelForRVGroup
-import kotlinx.android.synthetic.main.activity_catalog_grope.*
-import kotlinx.android.synthetic.main.activity_catalog_grope.navigation
-import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import kotlin.collections.ArrayList
 
@@ -62,16 +57,16 @@ class CatalogGroupeActivity : AppCompatActivity(), CatalogGroupContract.View {
 //        R.drawable.face_05
 //    )
 
-    private lateinit var articlesViewModel: ArticlesViewModel
+    private lateinit var articlesViewModel: CoctailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog_grope)
 
-        articlesViewModel = ViewModelProvider(this).get(ArticlesViewModel::class.java)
-        articlesViewModel.allArticles.observe(this, Observer { articles ->
-            articles?.let {
-                mPresenter.fillDataFromDB(it, num)
+        articlesViewModel = ViewModelProvider(this).get(CoctailViewModel::class.java)
+//        articlesViewModel.allArticles.observe(this, Observer { articles ->
+//            articles?.let {
+//                mPresenter.fillDataFromDB(it, num)
 //                mArticles.addAll(it)
 //                mRecipes.addAll(mArticles[num].articles)
 //                var numImageOld = 0
@@ -91,8 +86,8 @@ class CatalogGroupeActivity : AppCompatActivity(), CatalogGroupContract.View {
 //                    recipesForRV.add(recipeModelForRVGroup)
 //                }
 //                updateRV()
-            }
-        })
+//            }
+//        })
 
 //        navigation.selectedItemId = R.id.navigation_catalog
         num = intent.getIntExtra("pos", 0)

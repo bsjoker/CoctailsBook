@@ -6,24 +6,20 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.bakayapps.coctailsbook.App
 import com.bakayapps.coctailsbook.R
 import com.bakayapps.coctailsbook.data.database.entity.ArticlesModel
-import com.bakayapps.coctailsbook.database.ArticlesViewModel
+import com.bakayapps.coctailsbook.database.CoctailViewModel
 import com.bakayapps.coctailsbook.di.LoadingContract
-import kotlinx.android.synthetic.main.activity_loading.*
-import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 
 class LoadingActivity : AppCompatActivity(), LoadingContract.View {
     companion object {
         const val TAG = "LoadingActivity"
     }
 
-    val mPresenter: LoadingContract.Presenter by inject { parametersOf(this) }
+    //val mPresenter: LoadingContract.Presenter by inject { parametersOf(this) }
 
-    private lateinit var articlesViewModel: ArticlesViewModel
+    private lateinit var articlesViewModel: CoctailViewModel
 
     private var isStart = false
 
@@ -31,15 +27,15 @@ class LoadingActivity : AppCompatActivity(), LoadingContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loading)
 
-        mPresenter.getRecipesFromServer()
+        //mPresenter.getRecipesFromServer()
 
         showProgress()
 
-        articlesViewModel = ViewModelProvider(this).get(ArticlesViewModel::class.java)
+//        articlesViewModel = ViewModelProvider(this).get(ArticlesViewModel::class.java)
     }
 
     override fun setArtictesViewModel(am: ArticlesModel) {
-        articlesViewModel.insert(am)
+        //articlesViewModel.insert(am)
     }
 
     private fun showProgress() {
@@ -95,6 +91,6 @@ class LoadingActivity : AppCompatActivity(), LoadingContract.View {
 
     override fun onPause() {
         super.onPause()
-        mPresenter.disposeDisposable()
+        //mPresenter.disposeDisposable()
     }
 }

@@ -2,26 +2,17 @@ package com.bakayapps.coctailsbook
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bakayapps.coctailsbook.adapter.ComponentsAdapter
 import com.bakayapps.coctailsbook.models.ComponentsModelForRV
-import androidx.lifecycle.Observer
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.activity_recipe.*
-import kotlinx.android.synthetic.main.activity_recipe.image
-import kotlinx.android.synthetic.main.activity_recipe.navigation
-import java.lang.StringBuilder
 import java.util.*
 import androidx.lifecycle.ViewModelProvider
-import com.bakayapps.coctailsbook.database.ArticlesViewModel
-import com.bakayapps.coctailsbook.mvp.view.MainActivity
+import com.bakayapps.coctailsbook.database.CoctailViewModel
 
 
 class RecipeActivity : AppCompatActivity() {
@@ -63,7 +54,7 @@ class RecipeActivity : AppCompatActivity() {
         R.drawable.recipe_face_06
     )
 
-    private lateinit var articlesViewModel: ArticlesViewModel
+    private lateinit var articlesViewModel: CoctailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +74,7 @@ class RecipeActivity : AppCompatActivity() {
             4 -> currentDrawList = draweblesFace
         }
 
-        articlesViewModel = ViewModelProvider(this).get(ArticlesViewModel::class.java)
+        articlesViewModel = ViewModelProvider(this).get(CoctailViewModel::class.java)
 //        articlesViewModel.allArticles.observe(this, Observer { articles ->
 //                        articles?.let { //mRecipes = it[num].articles[numRecipe]
 //                            numImage = (0..currentDrawList.size-1).random()

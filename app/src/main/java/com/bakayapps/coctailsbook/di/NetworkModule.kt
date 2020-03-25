@@ -1,7 +1,9 @@
 package com.bakayapps.coctailsbook.di
 
 import com.bakayapps.coctailsbook.BuildConfig
+import com.bakayapps.coctailsbook.iCoctailsDBApi
 import com.google.gson.GsonBuilder
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,7 +21,7 @@ private const val READ_TIMEOUT = 15L
 val networkModule = module {
     single { Cache(androidApplication().cacheDir, 10L * 1024 * 1024) }
 
-    single { GsonBuilder().create() }
+    single { GsonBuilder().setLenient().create() }
 
     single {
         OkHttpClient.Builder().apply {
@@ -37,9 +39,11 @@ val networkModule = module {
     }
 
     single { Retrofit.Builder()
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl("https://www.thecocktaildb.com")
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
+        .addConverterFactory(GsonConverterFactory.create(get()))
+        .baseUrl("https://www.thecocktaildb.com/")
         .client(get())
         .build() }
+
+    factory { get<Retrofit>().create(iCoctailsDBApi::class.java) }
 }

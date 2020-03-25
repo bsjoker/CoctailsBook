@@ -1,15 +1,9 @@
 package com.bakayapps.coctailsbook
 
 import android.app.Application
-import com.bakayapps.coctailsbook.di.KoinModule.loadModule
+import com.bakayapps.coctailsbook.di.*
 import io.reactivex.plugins.RxJavaPlugins
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
-import okhttp3.logging.HttpLoggingInterceptor
-import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
 
@@ -18,9 +12,9 @@ class App : Application() {
         super.onCreate()
 
         startKoin {
+            printLogger() // Koin Logger
             androidContext(this@App)
-            androidLogger()
-            modules(loadModule())
+            modules(listOf(roomModule, viewModelModule, networkModule, repositoryModule, loadingModule, mainModule, catalogModule, catalogGroupModule))
         }
 
         RxJavaPlugins.setErrorHandler { throwable -> }

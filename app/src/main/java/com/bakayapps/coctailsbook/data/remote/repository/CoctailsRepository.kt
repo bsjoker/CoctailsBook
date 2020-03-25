@@ -6,6 +6,6 @@ import com.bakayapps.coctailsbook.data.remote.response.ShortItemCoctailResponse
 import kotlinx.coroutines.Deferred
 
 interface CoctailsRepository {
-    suspend fun getCurrentCategoryCoctail(category: String) : Deferred<ShortItemCoctailResponse>
+    suspend fun getCurrentCategoryCoctail(category: String, page: Int) : List<ShortItemCoctailResponse>
     //suspend fun getCurrentCategoryCoctail(category: String): LiveData<out List<ShortItemCoctail>>
 }

@@ -1,20 +1,19 @@
 package com.bakayapps.coctailsbook.data.remote.repository
 
 import android.util.Log
-import com.bakayapps.coctailsbook.data.remote.NetworkDataSource
 import com.bakayapps.coctailsbook.data.remote.domain.ShortItemCoctail
+import com.bakayapps.coctailsbook.data.remote.response.ShortItemCoctailResponse
 import com.bakayapps.coctailsbook.database.ArticlesDao
 import com.bakayapps.coctailsbook.iCoctailsDBApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class CoctailsRepositoryImpl(
     //private val networkDataSource: NetworkDataSource
-    private val coctailsDBApi: iCoctailsDBApi,
-    private val coctailsDAO: ArticlesDao
-    ) : CoctailsRepository {
+    private val coctailsDBApi: iCoctailsDBApi
+    //private val coctailsDAO: ArticlesDao
+    ){
 
     private var list: List<ShortItemCoctail> = emptyList<ShortItemCoctail>()
 
@@ -27,9 +26,15 @@ class CoctailsRepositoryImpl(
 //        }
 //    }
 
-    override suspend fun getCurrentCategoryCoctail(category: String) =
-        coctailsDBApi.getShortListCoctails(category)
+    private suspend fun searchRecipe(query: String, page: Int) =
+        coctailsDBApi.getShortListCoctails(query).await()
 
+    suspend fun getCurrentCategoryCoctail(category: String, page: Int) : List<ShortItemCoctailResponse> {
+        if (category.isEmpty()) return listOf()
+
+        val request = searchRecipe(category, page)
+        return request
+    }
 //    override suspend fun getCurrentCategoryCoctail(category: String): LiveData<out List<ShortItemCoctail>> {
 //        return withContext(Dispatchers.IO) {
 //            initWeatherData()
