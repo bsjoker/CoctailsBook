@@ -9,13 +9,18 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bakayapps.coctailsbook.R
+import com.bakayapps.coctailsbook.data.ShortItemCoctail
 import com.bakayapps.coctailsbook.models.RecipeModelForRV
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_recipe.view.*
 
-class RecipesAdapter(val newRecipeForRVS: ArrayList<RecipeModelForRV>, private val itemClickListener: (Int) -> Unit) : RecyclerView.Adapter<RecipesAdapter.RecipesViewHolder>() {
+class RecipesAdapter(val newRecipeForRVS: List<ShortItemCoctail>, private val itemClickListener: (Int) -> Unit) : RecyclerView.Adapter<RecipesAdapter.RecipesViewHolder>() {
     override fun onBindViewHolder(holder: RecipesViewHolder, position: Int) {
-        holder.picRecipe.setImageDrawable(newRecipeForRVS[position].pic)
-        holder.nameResipe.text = newRecipeForRVS[position].title
+        //holder.picRecipe.setImageDrawable(newRecipeForRVS[position].pic)
+        Glide.with(holder.itemView.context)
+            .load(newRecipeForRVS[position].thumbnail)
+            .into(holder.picRecipe)
+        holder.nameResipe.text = newRecipeForRVS[position].nameCoctail
 //        val typeface
 //        holder.nameResipe.typeface = typeface
     }

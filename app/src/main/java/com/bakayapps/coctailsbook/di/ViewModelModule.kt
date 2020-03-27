@@ -1,6 +1,6 @@
 package com.bakayapps.coctailsbook.di
 
-import com.bakayapps.coctailsbook.database.CoctailViewModel
+import com.bakayapps.coctailsbook.viewmodels.CoctailViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

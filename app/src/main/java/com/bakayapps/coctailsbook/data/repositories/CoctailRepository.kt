@@ -1,4 +1,4 @@
-package com.bakayapps.coctailsbook.database
+package com.bakayapps.coctailsbook.data.repositories
 
 import androidx.lifecycle.LiveData
 import com.bakayapps.coctailsbook.data.*
@@ -12,6 +12,10 @@ object CoctailRepository {
         return network.loadCoctailRecipe(coctailId)
     }
 
+    fun loadCategoryCoctails(category: String): LiveData<List<ShortItemCoctail>?>{
+        return network.loadCategoryCoctailsFromNetwork("Cocktail")
+    }
+
     fun getCoctail(coctailId: String): LiveData<CoctailData?>{
         return local.findCoctail(coctailId)
     }
@@ -21,7 +25,7 @@ object CoctailRepository {
     }
 
     fun getAppSettings(): LiveData<AppSettings> = local.getAppSettings() //from preferences
-    fun updateSettings(appSettings: AppSettings){
+    fun updateSettings(appSettings: AppSettings) {
         local.updateAppSettings(appSettings)
     }
 

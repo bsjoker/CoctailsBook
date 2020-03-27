@@ -1,9 +1,7 @@
 package com.bakayapps.coctailsbook.viewmodels
 
-import android.media.tv.TvView
 import androidx.annotation.UiThread
 import androidx.lifecycle.*
-import com.bakayapps.coctailsbook.database.CoctailViewModel
 
 abstract class BaseViewModel<T>(initState: T) : ViewModel() {
     val notifications = MutableLiveData<Event<Notify>>()
@@ -75,7 +73,7 @@ abstract class BaseViewModel<T>(initState: T) : ViewModel() {
     }
 }
 
-class viewModelFactory(private val params: String) :ViewModelProvider.Factory{
+class ViewModelFactory(private val params: String) :ViewModelProvider.Factory{
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CoctailViewModel::class.java)){
             return CoctailViewModel(params) as T

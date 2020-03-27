@@ -12,7 +12,7 @@ import com.bakayapps.coctailsbook.models.ComponentsModelForRV
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
 import androidx.lifecycle.ViewModelProvider
-import com.bakayapps.coctailsbook.database.CoctailViewModel
+import com.bakayapps.coctailsbook.viewmodels.CoctailViewModel
 
 
 class RecipeActivity : AppCompatActivity() {
@@ -119,10 +119,10 @@ class RecipeActivity : AppCompatActivity() {
 //                            updateRV() }})
 
         val layoutManager = LinearLayoutManager(this)
-        rvRecipe.layoutManager = layoutManager
+        //rvRecipe.layoutManager = layoutManager
 
         adapter = ComponentsAdapter(componentsForRV)
-        rvRecipe.adapter = adapter
+        //rvRecipe.adapter = adapter
 
 //        navigation.setOnNavigationItemSelectedListener { item ->
 //            when (item.itemId) {
@@ -142,15 +142,15 @@ class RecipeActivity : AppCompatActivity() {
 //            return@setOnNavigationItemSelectedListener true
 //        }
 
-        startAnimationAlpha(image, 0)
-        startAnimationAlpha(card, 0)
-        startAnimationTranslation(fab, 0)
-        startAnimationTranslation(llComponents, 0)
-        startAnimationAlpha(rvRecipe, 300)
-        startAnimationTranslation(llPrepare, 300)
-        startAnimationAlpha(tvPrepare, 600)
-        startAnimationTranslation(llUsage, 600)
-        startAnimationAlpha(tvUsage, 900)
+//        startAnimationAlpha(image, 0)
+//        startAnimationAlpha(card, 0)
+//        startAnimationTranslation(fab, 0)
+//        startAnimationTranslation(llComponents, 0)
+//        startAnimationAlpha(rvRecipe, 300)
+//        startAnimationTranslation(llPrepare, 300)
+//        startAnimationAlpha(tvPrepare, 600)
+//        startAnimationTranslation(llUsage, 600)
+//        startAnimationAlpha(tvUsage, 900)
 
 //        nested_content.setOnScrollChangeListener(
 //            NestedScrollView.OnScrollChangeListener {
@@ -175,8 +175,8 @@ class RecipeActivity : AppCompatActivity() {
             override fun onAnimationCancel(animation: Animator) {}
             override fun onAnimationStart(animation: Animator) {
                 when (view!!.id) {
-                    R.id.llPrepare -> llPrepare.visibility = View.VISIBLE
-                    R.id.llUsage -> llUsage.visibility = View.VISIBLE
+                    //R.id.llPrepare -> llPrepare.visibility = View.VISIBLE
+                    //R.id.llUsage -> llUsage.visibility = View.VISIBLE
                 }
             }
         })
@@ -194,9 +194,9 @@ class RecipeActivity : AppCompatActivity() {
             override fun onAnimationCancel(animation: Animator) {}
             override fun onAnimationStart(animation: Animator) {
                 when (view!!.id){
-                    R.id.rvRecipe -> rvRecipe.visibility = View.VISIBLE
-                    R.id.tvPrepare -> tvPrepare.visibility = View.VISIBLE
-                    R.id.tvUsage -> tvUsage.visibility = View.VISIBLE
+                    //R.id.rvRecipe -> rvRecipe.visibility = View.VISIBLE
+                    //R.id.tvPrepare -> tvPrepare.visibility = View.VISIBLE
+                    //R.id.tvUsage -> tvUsage.visibility = View.VISIBLE
                 }
             }
         })

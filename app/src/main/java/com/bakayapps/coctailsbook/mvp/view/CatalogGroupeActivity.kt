@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bakayapps.coctailsbook.R
 import com.bakayapps.coctailsbook.RecipeActivity
 import com.bakayapps.coctailsbook.adapter.GroupAdapter
-import com.bakayapps.coctailsbook.database.CoctailViewModel
+import com.bakayapps.coctailsbook.viewmodels.CoctailViewModel
 import com.bakayapps.coctailsbook.di.CatalogGroupContract
 import com.bakayapps.coctailsbook.models.RecipeModelForRVGroup
 import org.koin.core.parameter.parametersOf
@@ -21,7 +21,7 @@ class CatalogGroupeActivity : AppCompatActivity(), CatalogGroupContract.View {
         const val TAG = "CatalogGroupeActivity"
     }
 
-    val mPresenter : CatalogGroupContract.Presenter by inject { parametersOf(this) }
+    //val mPresenter : CatalogGroupContract.Presenter by inject { parametersOf(this) }
 
     private var num: Int = 0
 //    private var numImage: Int = 0
@@ -138,13 +138,13 @@ class CatalogGroupeActivity : AppCompatActivity(), CatalogGroupContract.View {
     }
 
     override fun setData(imageGroup: Drawable, text: String) {
-        image.setImageDrawable(imageGroup)
-        tvGroup.text = text
+//        image.setImageDrawable(imageGroup)
+//        tvGroup.text = text
     }
 
     override fun updateRV(recipesForRV: ArrayList<RecipeModelForRVGroup>) {
         this.recipesForRV = recipesForRV
-        recyclerViewCatalogSecond.layoutManager = LinearLayoutManager(this)
+        //recyclerViewCatalogSecond.layoutManager = LinearLayoutManager(this)
 
         adapter = GroupAdapter(recipesForRV) {
             Log.d(TAG, "clicked at : $it")
@@ -156,7 +156,7 @@ class CatalogGroupeActivity : AppCompatActivity(), CatalogGroupContract.View {
             )
         }
 
-        recyclerViewCatalogSecond.adapter = adapter
+        //recyclerViewCatalogSecond.adapter = adapter
         //adapter.notifyDataSetChanged()
     }
 }

@@ -7,29 +7,57 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bakayapps.coctailsbook.App
 import com.bakayapps.coctailsbook.R
 import com.bakayapps.coctailsbook.RecipeActivity
 import com.bakayapps.coctailsbook.adapter.RecipesAdapter
 import com.bakayapps.coctailsbook.adapter.ViewPagerAdapter
-import com.bakayapps.coctailsbook.di.MainContract
+import com.bakayapps.coctailsbook.data.ShortItemCoctail
+import com.bakayapps.coctailsbook.viewmodels.CoctailState
+import com.bakayapps.coctailsbook.viewmodels.CoctailViewModel
 import com.bakayapps.coctailsbook.models.RecipeModelForRV
 import com.bakayapps.coctailsbook.utils.EnumOfRV
 import com.bakayapps.coctailsbook.utils.StartSnapHelper
+import com.bakayapps.coctailsbook.viewmodels.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 
-class HomeFragment : Fragment(), MainContract.View {
+class HomeFragment : Fragment() {
     companion object {
         const val TAG = "HomeFragment"
     }
 
+    private lateinit var viewModel: CoctailViewModel
+
     lateinit var adapterTop: RecipesAdapter
     lateinit var adapterBottom: RecipesAdapter
 
-    val mPresenter: MainContract.Presenter by inject { parametersOf(this) }
+    lateinit var num: IntArray
+    lateinit var numRecipe: IntArray
+
+    private val drawArrayPopular = intArrayOf(
+        R.drawable.popular_recp_01,
+        R.drawable.popular_recp_02,
+        R.drawable.popular_recp_03,
+        R.drawable.popular_recp_04,
+        R.drawable.popular_recp_05,
+        R.drawable.popular_recp_06
+    )
+
+    private val drawArrayNew = intArrayOf(
+        R.drawable.new_recp_01,
+        R.drawable.new_recp_02,
+        R.drawable.new_recp_03,
+        R.drawable.new_recp_04,
+        R.drawable.new_recp_05,
+        R.drawable.new_recp_06
+    )
+
+    private val popularRecipeForRVS: ArrayList<RecipeModelForRV> = ArrayList()
+    private val newRecipeForRVS: List<ShortItemCoctail> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,10 +70,15 @@ class HomeFragment : Fragment(), MainContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mPresenter.fillListData()
+
+        val vmFactory = ViewModelFactory("0")
+        viewModel = ViewModelProvider(requireActivity(), vmFactory).get(CoctailViewModel::class.java)
+        viewModel.observState(this){
+            renderUI(it)
+        }
 
         viewPager2.adapter = ViewPagerAdapter {
-            mPresenter.clickPosition(it, EnumOfRV.VIEWPAGER)
+            clickPosition(it, EnumOfRV.VIEWPAGER)
         }
 
         val typeface = Typeface.createFromAsset(requireContext().assets, "playfair.ttf")
@@ -59,19 +92,25 @@ class HomeFragment : Fragment(), MainContract.View {
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
-    override fun setDataToRV(
-        popularRecipeForRVS: ArrayList<RecipeModelForRV>,
-        newRecipeForRVS: ArrayList<RecipeModelForRV>
+    private fun renderUI(coctailState: CoctailState) {
+        //popular_recp.text = if (coctailState.isLoadingRecipe) "loading" else coctailState.listShortItemCoctailsByCategory.first().nameCoctail
+        if (!coctailState.isLoadingRecipe) setDataToRV(coctailState.listShortItemCoctailsByCategory, coctailState.listShortItemCoctailsByCategory)
+    }
+
+    fun setDataToRV(
+        popularRecipeForRVS: List<ShortItemCoctail>,
+        newRecipeForRVS: List<ShortItemCoctail>
     ) {
         adapterTop = RecipesAdapter(popularRecipeForRVS) {
             Log.d(TAG, "clicked at : $it")
-            mPresenter.clickPosition(it, EnumOfRV.RECYCLERVIEW_POPULAR)
+            clickPosition(it, EnumOfRV.RECYCLERVIEW_POPULAR)
         }
+
         recyclerViewPopular.adapter = adapterTop
 
         adapterBottom = RecipesAdapter(newRecipeForRVS) {
             Log.d(TAG, "clicked at : $it")
-            mPresenter.clickPosition(it, EnumOfRV.RECYCLERVIEW_NEW)
+            clickPosition(it, EnumOfRV.RECYCLERVIEW_NEW)
         }
         recyclerViewNew.adapter = adapterBottom
 
@@ -82,7 +121,29 @@ class HomeFragment : Fragment(), MainContract.View {
         snapHelperNew.attachToRecyclerView(recyclerViewNew)
     }
 
-    override fun startNextActivity(num: Int, numRecipe: Int) {
+    fun clickPosition(pos: Int, type: EnumOfRV) {
+        when (type) {
+            EnumOfRV.VIEWPAGER -> {
+                num = intArrayOf(4, 3, 0, 3, 4)
+                numRecipe = intArrayOf(29, 0, 2, 16, 0)
+            }
+
+            EnumOfRV.RECYCLERVIEW_POPULAR ->
+            {
+                num = intArrayOf(3, 3, 4, 0, 4, 3)
+                numRecipe = intArrayOf(6, 7, 30, 9, 11, 4)
+            }
+
+            EnumOfRV.RECYCLERVIEW_NEW ->
+            {
+                num = intArrayOf(3, 4, 0, 4, 3, 3)
+                numRecipe = intArrayOf(10, 37, 4, 19, 15, 17)
+            }
+        }
+        startNextActivity(num[pos], numRecipe[pos])
+    }
+
+    fun startNextActivity(num: Int, numRecipe: Int) {
         startActivity(
             Intent(
                 requireContext(),
@@ -90,4 +151,6 @@ class HomeFragment : Fragment(), MainContract.View {
             ).putExtra("groupNum", num).putExtra("recipeNum", numRecipe)
         )
     }
+
+    private inline fun <reified T> T.get() = T::class.java.simpleName
 }

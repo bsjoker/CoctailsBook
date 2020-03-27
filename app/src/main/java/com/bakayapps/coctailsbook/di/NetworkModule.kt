@@ -1,7 +1,7 @@
 package com.bakayapps.coctailsbook.di
 
 import com.bakayapps.coctailsbook.BuildConfig
-import com.bakayapps.coctailsbook.iCoctailsDBApi
+import com.bakayapps.coctailsbook.iCoctailApi
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Cache
@@ -10,7 +10,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -45,5 +44,5 @@ val networkModule = module {
         .client(get())
         .build() }
 
-    factory { get<Retrofit>().create(iCoctailsDBApi::class.java) }
+    factory { get<Retrofit>().create(iCoctailApi::class.java) }
 }

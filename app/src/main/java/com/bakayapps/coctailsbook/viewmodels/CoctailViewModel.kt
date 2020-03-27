@@ -1,18 +1,19 @@
-package com.bakayapps.coctailsbook.database
+package com.bakayapps.coctailsbook.viewmodels
 
 import androidx.lifecycle.LiveData
 import com.bakayapps.coctailsbook.data.CoctailData
 import com.bakayapps.coctailsbook.data.CoctailPersonalInfo
-import com.bakayapps.coctailsbook.viewmodels.BaseViewModel
+import com.bakayapps.coctailsbook.data.ShortItemCoctail
+import com.bakayapps.coctailsbook.data.repositories.CoctailRepository
+import com.bakayapps.coctailsbook.extensions.data.toAppSettings
 
-class CoctailViewModel(private var coctailId: String) :
-    BaseViewModel<CoctailState>(CoctailState()) {
+class CoctailViewModel(private val coctailId: String) : BaseViewModel<CoctailState>(CoctailState()), ICoctailViewModel {
     private val repository = CoctailRepository
 
     init {
         // subscribe on mutable data
         subscribeToDataSource(getCoctailData()) { coctail, state ->
-            coctail ?: return@subscribeToDataSource null
+            coctail?: return@subscribeToDataSource null
             state.copy(
                 shareLink = coctail.shareLink,
                 title = coctail.title,
@@ -23,42 +24,80 @@ class CoctailViewModel(private var coctailId: String) :
             )
         }
 
-        subscribeToDataSource(getCoctailRecipe()) { recipe, state ->
-            recipe ?: return@subscribeToDataSource null
+        subscribeToDataSource(getShortItemCoctailsByCategory()){ list, state ->
+            list?: return@subscribeToDataSource null
             state.copy(
                 isLoadingRecipe = false,
+                listShortItemCoctailsByCategory = list
+            )
+        }
+
+        subscribeToDataSource(getCoctailRecipe()) { recipe, state ->
+            recipe?: return@subscribeToDataSource null
+            state.copy(
+                //isLoadingRecipe = false,
                 recipe = recipe
             )
         }
 
         subscribeToDataSource(getCoctailPersonalInfo()) { info, state ->
-            info ?: return@subscribeToDataSource null
+            info?: return@subscribeToDataSource null
             state.copy(
                 isBookmark = info.isBookmark,
                 isLike = info.isLike
             )
         }
 
-        subscribeToDataSource(repository.getAppSettings()) { settins, state ->
+        subscribeToDataSource(repository.getAppSettings()) { settings, state ->
             state.copy(
-                isDarkMode = state.isDarkMode
+                isDarkMode = settings.isDarkMode
             )
         }
     }
 
     //Load text from network
-    fun getCoctailRecipe(): LiveData<List<Any>?> {
+    override fun getCoctailRecipe(): LiveData<List<Any>?> {
         return repository.loadCoctailRecipe(coctailId)
     }
 
+    override fun getShortItemCoctailsByCategory(): LiveData<List<ShortItemCoctail>?>{
+        return repository.loadCategoryCoctails("coctails")
+    }
+
     //Load text from DB
-    fun getCoctailData(): LiveData<CoctailData?> {
+    override fun getCoctailData(): LiveData<CoctailData?> {
         return repository.getCoctail(coctailId)
     }
 
     //Load data from DB
-    fun getCoctailPersonalInfo(): LiveData<CoctailPersonalInfo?> {
+    override fun getCoctailPersonalInfo(): LiveData<CoctailPersonalInfo?> {
         return repository.loadCoctailPersonalInfo(coctailId)
+    }
+
+    // app settings
+    override fun handleNightMode(){
+        val settings = currentState.toAppSettings()
+        repository.updateSettings(settings.copy(isDarkMode = !settings.isDarkMode))
+    }
+
+    override fun handleBookmark() {
+
+    }
+
+    override fun handleLike() {
+
+    }
+
+    override fun handleShare() {
+
+    }
+
+    override fun handleSearchMode(isSearch: Boolean) {
+
+    }
+
+    override fun handleSearch(query: String?) {
+
     }
 }
 
@@ -83,5 +122,6 @@ data class CoctailState(
     val author: Any? = null,
     val poster: String? = null, //обложка статьи
     val recipe: List<Any> = emptyList(), //рецепт
-    val reviews: List<Any> = emptyList() //отзывы
+    val reviews: List<Any> = emptyList(), //отзывы
+    val listShortItemCoctailsByCategory: List<ShortItemCoctail> = emptyList()
 )

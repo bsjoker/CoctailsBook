@@ -1,14 +1,20 @@
 package com.bakayapps.coctailsbook.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.bakayapps.coctailsbook.App
 import com.bakayapps.coctailsbook.R
+import com.google.gson.annotations.SerializedName
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 object LocalDataHolder{
     val coctailData = MutableLiveData<CoctailData>(null)
     val coctailInfo = MutableLiveData<CoctailPersonalInfo>(null)
-    val settings = MutableLiveData<AppSettings>(null)
+    val settings = MutableLiveData(AppSettings())
 
     fun findCoctail(coctailId : String): LiveData<CoctailData?>{
 
@@ -40,10 +46,31 @@ object LocalDataHolder{
 
 object NetworkDataholder{
     val recipe = MutableLiveData<List<Any>?>(null)
+    val listShortItemByCategoriesCoctails = MutableLiveData<List<ShortItemCoctail>?>(null)
+    var disposable: Disposable? = null
 
     fun loadCoctailRecipe(coctailId: String): LiveData<List<Any>?>{
         recipe.value = listOf(longText)
         return recipe
+    }
+
+    private val mICoctailApi by lazy {
+        App.createCoctailApi()
+    }
+
+    fun loadCategoryCoctailsFromNetwork(category: String): LiveData<List<ShortItemCoctail>?>{
+        disposable = mICoctailApi.getShortListCoctails(category)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { result ->
+                    listShortItemByCategoriesCoctails.value = result.drinks
+                    Log.d("DataHolder", "First recipe: ${result.drinks[0].nameCoctail}")
+                },
+                { error -> Log.d("DataHolder", "Error to try catch data! $error") }
+            )
+
+        return listShortItemByCategoriesCoctails
     }
 }
 
@@ -56,6 +83,12 @@ data class CoctailData(
     val author: Any? = null,
     val poster: String? = null,
     val content: List<Any> = emptyList()
+)
+
+data class ShortItemCoctail (
+    @SerializedName("strDrink") val nameCoctail: String,
+    @SerializedName("strDrinkThumb") val thumbnail: String,
+    @SerializedName("idDrink") val id: String
 )
 
 data class CoctailPersonalInfo(

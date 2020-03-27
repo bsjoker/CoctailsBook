@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bakayapps.coctailsbook.App
 import com.bakayapps.coctailsbook.R
 import com.bakayapps.coctailsbook.data.database.entity.ArticlesModel
-import com.bakayapps.coctailsbook.database.CoctailViewModel
+import com.bakayapps.coctailsbook.viewmodels.CoctailViewModel
 import com.bakayapps.coctailsbook.di.LoadingContract
 
 class LoadingActivity : AppCompatActivity(), LoadingContract.View {
@@ -47,7 +47,7 @@ class LoadingActivity : AppCompatActivity(), LoadingContract.View {
 
                 speed--
                 Thread.sleep(speed.toLong())
-                pb_horizontal.setProgress(prs)
+                //pb_horizontal.setProgress(prs)
 
                 prs++
             }

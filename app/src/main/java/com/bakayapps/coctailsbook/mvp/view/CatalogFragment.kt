@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bakayapps.coctailsbook.R
 import com.bakayapps.coctailsbook.adapter.CatalogAdapter
-import com.bakayapps.coctailsbook.database.CoctailViewModel
+import com.bakayapps.coctailsbook.viewmodels.CoctailViewModel
 import com.bakayapps.coctailsbook.di.CatalogContract
 import com.bakayapps.coctailsbook.models.RecipeModelForRV
 
@@ -19,7 +19,7 @@ class CatalogFragment : Fragment(), CatalogContract.View {
         const val TAG = "CatalogFragment"
     }
 
-    private val model by viewModel<CoctailViewModel>()
+    //private val model by viewModel<CoctailViewModel>()
 
     //val mPresenter: CatalogContract.Presenter by inject { parametersOf(this) }
 
@@ -35,7 +35,7 @@ class CatalogFragment : Fragment(), CatalogContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observeViewModelData()
+        //observeViewModelData()
         //mPresenter.fillDataForRV()
 
 //        navigation.selectedItemId = R.id.navigation_catalog
@@ -47,19 +47,23 @@ class CatalogFragment : Fragment(), CatalogContract.View {
 //        }
     }
 
-    private fun observeViewModelData() {
-        //model.networkState?.observe(this, Observer { repositoryRecyclerViewAdapter.updateNetworkState(it) })
-        Log.d(TAG, model.fetchRecipesByIngredients("Cocktail").toString())
-        model.coctails.observe(viewLifecycleOwner, Observer { model -> Log.d(TAG, "Observe + ${model}") })
+    override fun setDataToRV(groupsForRV: ArrayList<RecipeModelForRV>) {
+
     }
 
-    override fun setDataToRV(groupsForRV: ArrayList<RecipeModelForRV>) {
-        recyclerViewCatalogMain.layoutManager = LinearLayoutManager(requireContext())
-        recyclerViewCatalogMain.adapter = CatalogAdapter(groupsForRV) {
-            Log.d(TAG, "clicked at : $it")
-            //mPresenter.clickToItem(it)
-        }
-    }
+//    private fun observeViewModelData() {
+//        //model.networkState?.observe(this, Observer { repositoryRecyclerViewAdapter.updateNetworkState(it) })
+//        Log.d(TAG, model.fetchRecipesByIngredients("Cocktail").toString())
+//        model.coctails.observe(viewLifecycleOwner, Observer { model -> Log.d(TAG, "Observe + ${model}") })
+//    }
+//
+//    override fun setDataToRV(groupsForRV: ArrayList<RecipeModelForRV>) {
+//        recyclerViewCatalogMain.layoutManager = LinearLayoutManager(requireContext())
+//        recyclerViewCatalogMain.adapter = CatalogAdapter(groupsForRV) {
+//            Log.d(TAG, "clicked at : $it")
+//            //mPresenter.clickToItem(it)
+//        }
+//    }
 
 //    override fun startNewActivity(pos: Int) {
 //        if(pos>1){

@@ -3,15 +3,14 @@ package com.bakayapps.coctailsbook.data.remote.repository
 import android.util.Log
 import com.bakayapps.coctailsbook.data.remote.domain.ShortItemCoctail
 import com.bakayapps.coctailsbook.data.remote.response.ShortItemCoctailResponse
-import com.bakayapps.coctailsbook.database.ArticlesDao
-import com.bakayapps.coctailsbook.iCoctailsDBApi
+import com.bakayapps.coctailsbook.iCoctailApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class CoctailsRepositoryImpl(
     //private val networkDataSource: NetworkDataSource
-    private val coctailsDBApi: iCoctailsDBApi
+    private val coctailApi: iCoctailApi
     //private val coctailsDAO: ArticlesDao
     ){
 
@@ -26,15 +25,17 @@ class CoctailsRepositoryImpl(
 //        }
 //    }
 
-    private suspend fun searchRecipe(query: String, page: Int) =
-        coctailsDBApi.getShortListCoctails(query).await()
+//    private suspend fun searchRecipe(query: String, page: Int) =
+//        coctailApi.getShortListCoctails(query).await()
 
-    suspend fun getCurrentCategoryCoctail(category: String, page: Int) : List<ShortItemCoctailResponse> {
-        if (category.isEmpty()) return listOf()
+//    suspend fun getCurrentCategoryCoctail(category: String, page: Int) : List<ShortItemCoctailResponse> {
+//        if (category.isEmpty()) return listOf()
 
-        val request = searchRecipe(category, page)
-        return request
     }
+
+//        val request = searchRecipe(category, page)
+//        return request
+//    }
 //    override suspend fun getCurrentCategoryCoctail(category: String): LiveData<out List<ShortItemCoctail>> {
 //        return withContext(Dispatchers.IO) {
 //            initWeatherData()
@@ -70,13 +71,13 @@ class CoctailsRepositoryImpl(
 //        }
 //    }
 
-    private fun persistFetchedCurrentWeather(fetchedWeather: List<ShortItemCoctail>) {
-        GlobalScope.launch(Dispatchers.IO) {
-//            currentWeatherDao.upsert(fetchedWeather.currentWeatherEntry)
-//            weatherLocationDao.upsert(fetchedWeather.location)
-            Log.d("TAG", fetchedWeather[0].nameCoctail)
-        }
-    }
+//    private fun persistFetchedCurrentWeather(fetchedWeather: List<ShortItemCoctail>) {
+//        GlobalScope.launch(Dispatchers.IO) {
+////            currentWeatherDao.upsert(fetchedWeather.currentWeatherEntry)
+////            weatherLocationDao.upsert(fetchedWeather.location)
+//            Log.d("TAG", fetchedWeather[0].nameCoctail)
+//        }
+//    }
 
 //    private fun persistFetchedFutureWeather(fetchedWeather: FutureWeatherResponse) {
 //
@@ -113,4 +114,3 @@ class CoctailsRepositoryImpl(
 //    private suspend fun fetchCurrentWeather() {
 //        networkDataSource.fetchShortListCoctails("Cocktail")
 //    }
-}
