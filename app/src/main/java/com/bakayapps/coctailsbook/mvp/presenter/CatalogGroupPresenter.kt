@@ -84,7 +84,7 @@ class CatalogGroupPresenter(val mView: CatalogGroupContract.View): CatalogGroupC
             0 -> {
                 currentDraweblesList = draweblesHair
                 image = ContextCompat.getDrawable(App.instance.applicationContext,
-                    R.drawable.group_hair
+                    R.drawable.group_ordinary_drink
                 )!!
                 text = App.instance.resources.getStringArray(R.array.group_main_catalog)[0]
                 mView.setData(image, text)
@@ -93,7 +93,7 @@ class CatalogGroupPresenter(val mView: CatalogGroupContract.View): CatalogGroupC
             1 -> {
                 currentDraweblesList = draweblesBody
                 image = ContextCompat.getDrawable(App.instance.applicationContext,
-                    R.drawable.group_body
+                    R.drawable.group_ordinary_drink
                 )!!
                 text = App.instance.resources.getStringArray(R.array.group_main_catalog)[1]
                 mView.setData(image, text)
@@ -102,7 +102,7 @@ class CatalogGroupPresenter(val mView: CatalogGroupContract.View): CatalogGroupC
             3 -> {
                 currentDraweblesList = draweblesBody
                 image = ContextCompat.getDrawable(App.instance.applicationContext,
-                    R.drawable.group_body
+                    R.drawable.group_ordinary_drink
                 )!!
                 text = App.instance.resources.getStringArray(R.array.group_main_catalog)[2]
                 mView.setData(image, text)
@@ -111,7 +111,7 @@ class CatalogGroupPresenter(val mView: CatalogGroupContract.View): CatalogGroupC
             4 -> {
                 currentDraweblesList = draweblesFace
                 image = ContextCompat.getDrawable(App.instance.applicationContext,
-                    R.drawable.group_face
+                    R.drawable.group_ordinary_drink
                 )!!
                 text = App.instance.resources.getStringArray(R.array.group_main_catalog)[3]
                 mView.setData(image, text)

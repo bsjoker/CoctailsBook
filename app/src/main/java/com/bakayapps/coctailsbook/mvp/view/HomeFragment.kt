@@ -38,24 +38,6 @@ class HomeFragment : Fragment() {
     lateinit var num: IntArray
     lateinit var numRecipe: IntArray
 
-    private val drawArrayPopular = intArrayOf(
-        R.drawable.popular_recp_01,
-        R.drawable.popular_recp_02,
-        R.drawable.popular_recp_03,
-        R.drawable.popular_recp_04,
-        R.drawable.popular_recp_05,
-        R.drawable.popular_recp_06
-    )
-
-    private val drawArrayNew = intArrayOf(
-        R.drawable.new_recp_01,
-        R.drawable.new_recp_02,
-        R.drawable.new_recp_03,
-        R.drawable.new_recp_04,
-        R.drawable.new_recp_05,
-        R.drawable.new_recp_06
-    )
-
     private val popularRecipeForRVS: ArrayList<RecipeModelForRV> = ArrayList()
     private val newRecipeForRVS: List<ShortItemCoctail> = emptyList()
 

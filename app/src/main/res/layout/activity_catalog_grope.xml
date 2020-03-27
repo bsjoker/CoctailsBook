@@ -33,7 +33,6 @@
                 android:contentDescription="TODO"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/group_face"
                 app:layout_collapseMode="parallax" />
 
             <TextView

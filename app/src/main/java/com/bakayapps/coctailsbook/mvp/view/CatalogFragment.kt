@@ -5,23 +5,34 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bakayapps.coctailsbook.App
 import com.bakayapps.coctailsbook.R
 import com.bakayapps.coctailsbook.adapter.CatalogAdapter
-import com.bakayapps.coctailsbook.viewmodels.CoctailViewModel
-import com.bakayapps.coctailsbook.di.CatalogContract
 import com.bakayapps.coctailsbook.models.RecipeModelForRV
+import kotlinx.android.synthetic.main.fragment_catalog.*
 
-class CatalogFragment : Fragment(), CatalogContract.View {
+class CatalogFragment : Fragment() {
     companion object {
         const val TAG = "CatalogFragment"
     }
 
-    //private val model by viewModel<CoctailViewModel>()
-
-    //val mPresenter: CatalogContract.Presenter by inject { parametersOf(this) }
+    private val drawArray = intArrayOf(
+        R.drawable.group_ordinary_drink,
+        R.drawable.group_coctail,
+        R.drawable.group_milk_shake,
+        R.drawable.group_others,
+        R.drawable.group_cocoa,
+        R.drawable.group_shots,
+        R.drawable.group_coffee_tea,
+        R.drawable.group_homemade_liqueur,
+        R.drawable.group_punch,
+        R.drawable.group_beer,
+        R.drawable.group_soft_soda
+    )
+    private val groupsForRV: ArrayList<RecipeModelForRV> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,21 +45,32 @@ class CatalogFragment : Fragment(), CatalogContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        //observeViewModelData()
-        //mPresenter.fillDataForRV()
-
-//        navigation.selectedItemId = R.id.navigation_catalog
-//        navigation.setOnNavigationItemSelectedListener { item ->
-//            if (item.itemId == R.id.navigation_home) {
-//                startActivity(Intent(this@CatalogActivity, MainActivity::class.java))
-//            }
-//            return@setOnNavigationItemSelectedListener true
-//        }
+        fillDataForRV()
     }
 
-    override fun setDataToRV(groupsForRV: ArrayList<RecipeModelForRV>) {
+    fun fillDataForRV() {
+        for (i in 0..10){
+            groupsForRV.add(
+                RecipeModelForRV(
+                    ContextCompat.getDrawable(App.instance.applicationContext, drawArray[i])!!,
+                    App.instance.resources.getStringArray(R.array.group_main_catalog)[i]
+                )
+            )
+        }
 
+        setDataToRV(groupsForRV)
+    }
+
+    fun clickToItem(pos: Int) {
+        //mView.startNewActivity(pos)
+    }
+
+    fun setDataToRV(groupsForRV: ArrayList<RecipeModelForRV>) {
+        recyclerViewCatalogMain.layoutManager = LinearLayoutManager(requireContext())
+        recyclerViewCatalogMain.adapter = CatalogAdapter(groupsForRV) {
+            Log.d(TAG, "clicked at : $it")
+            //mPresenter.clickToItem(it)
+        }
     }
 
 //    private fun observeViewModelData() {

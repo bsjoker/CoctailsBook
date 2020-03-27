@@ -19,7 +19,7 @@ class App : Application() {
         startKoin {
             printLogger() // Koin Logger
             androidContext(this@App)
-            modules(listOf(roomModule, viewModelModule, networkModule, repositoryModule, loadingModule, mainModule, catalogModule, catalogGroupModule))
+            modules(listOf(roomModule, viewModelModule, networkModule, repositoryModule, loadingModule, mainModule, catalogGroupModule))
         }
 
         RxJavaPlugins.setErrorHandler { throwable -> }
